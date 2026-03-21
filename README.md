@@ -1,137 +1,211 @@
-# 📈 Marketing Planning Assistant Agent
+# 📈 Dockerized AI Marketing Planning Service
 
-An AI-powered marketing planning system that generates structured marketing strategies using **LangChain, Streamlit, and MySQL**.
+An AI-powered marketing planning system that generates structured marketing strategies using **LangChain, Streamlit, and MySQL**, packaged with **Docker** and integrated with **GitHub Actions CI**.
 
-This project demonstrates an **agentic AI workflow** capable of breaking down high-level marketing goals into actionable execution plans.
+This project demonstrates an **agentic AI workflow** combined with **DevOps practices** such as containerization, service orchestration, environment consistency, and continuous integration.
+
+---
+
+## 📝 Problem Statement
+
+Build and deploy a **Dockerized AI Marketing Planning Service** using modern DevOps practices.
+
+The objective is to containerize the application, connect it with a MySQL database, manage multi-service execution using Docker Compose, and automate validation using GitHub Actions CI.
+
+This ensures:
+- consistent development and runtime environment
+- portability across systems
+- easier deployment and maintenance
+- improved reliability through CI checks
 
 ---
 
 ## 🚀 Features
 
-- ✅ **Goal Decomposition**  
-  Converts broad marketing goals into structured tasks
-
-- ✅ **Resource Validation**  
-  Uses mock tools for budgets, keywords, and ad analysis
-
-- ✅ **Dependency Management**  
-  Determines optimal execution order
-
-- ✅ **Optimized Scheduling**  
-  Generates a logical plan timeline
-
-- ✅ **Streamlit GUI**  
-  Interactive, clean, and user-friendly interface
-
-- ✅ **Dark Mode Toggle**  
-  Improves readability and UX
-
-- ✅ **Plan History (MySQL)**  
-  Persistent storage of marketing plans
-
-- ✅ **Search / Filter Plans**  
-  Quickly find past plans
-
-- ✅ **Delete Plans️**  
-  Remove unwanted records
-
-- ✅ **PDF Export**  
-  Download plans as PDF
+- ✅ AI-based Marketing Plan Generation
+- ✅ Goal Decomposition into Structured Tasks
+- ✅ Marketing Resource Validation
+- ✅ Budget and Keyword Assistance
+- ✅ Optimized Campaign Scheduling
+- ✅ Interactive Streamlit Interface
+- ✅ Dark Mode Toggle
+- ✅ MySQL-based Plan History
+- ✅ Search / Filter Previous Plans
+- ✅ Delete Individual Plans
+- ✅ Clear Entire History
+- ✅ PDF Export
+- ✅ Dockerized Deployment
+- ✅ GitHub Actions CI Pipeline
 
 ---
 
 ## 🧠 Tech Stack
 
-- **Python**
-- **LangChain**
-- **Streamlit**
-- **MySQL**
-- **ReportLab (PDF generation)**
-- **Pydantic**
-- **Python Dotenv**
+### Application
+- Python
+- LangChain
+- Streamlit
+- MySQL
+- ReportLab
+- Pydantic
+- Python Dotenv
+
+### DevOps / Deployment
+- Git
+- GitHub
+- Docker
+- Docker Compose
+- GitHub Actions
 
 ---
 
 ## 📂 Project Structure
 
 ```text
-marketing_planner_agent/
-│
-├── main.py                # CLI entry point
-├── streamlit_app.py       # Streamlit GUI application
-├── agent.py               # Core agent orchestration logic
-├── planner.py             # Planning & task decomposition engine
-├── config.py              # Configuration & environment handling
-├── database_mysql.py      # MySQL database operations
-├── requirements.txt       # Project dependencies
-└── README.md              # Project documentation
-│
-└── tools/
-    ├── ad_library_tool.py # Ad research / competitor insights
-    ├── budget_tool.py     # Budget validation logic
-    ├── keyword_tool.py    # Keyword planning logic
-    └── scheduler_tool.py  # Campaign scheduling logic
+Dockerized-AI-Marketing-Planning-Service/
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+├── tools/
+│   ├── ad_library_tool.py
+│   ├── budget_tool.py
+│   ├── keyword_tool.py
+│   └── scheduler_tool.py
+├── .dockerignore
+├── .env
+├── .gitignore
+├── Dockerfile
+├── README.md
+├── __init__.py
+├── agent.py
+├── config.py
+├── database_mysql.py
+├── docker-compose.yml
+├── init.sql
+├── main.py
+├── planner.py
+├── requirements.txt
+└── streamlit_app.py
+
+```
+---
+## 🖥️ Run Locally
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/krishnapawar9/Dockerized-AI-Marketing-Planning-Service.git
+cd Dockerized-AI-Marketing-Planning-Service
+```
+
+### 2. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Configure environment variables
+
+Create a `.env` file and add:
+
+```env
+GOOGLE_API_KEY=your_google_api_key
+MODEL_NAME=gemini-2.5-flash
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_password
+DB_NAME=marketing_agent
+```
+
+> Make sure a local MySQL server is running and the `marketing_agent` database is available before starting the application.
+
+### 4. Run the application
+
+```bash
+streamlit run streamlit_app.py
 ```
 
 ---
 
-## 🖥️ Usage
+## 🐳 Run with Docker
 
-Using the application is simple:
+### Build and start containers
 
-1️⃣ **Enter a marketing goal**  
-Describe what you want the AI agent to plan.
+```bash
+docker compose up --build
+```
 
-2️⃣ **Select response style**  
-Choose how the strategy should be written (Professional, Creative, etc.).
+### Access the app
 
-3️⃣ **Generate structured marketing plan**  
-The AI agent decomposes your goal into an actionable execution plan.
+```text
+http://localhost:8501
+```
 
-4️⃣ **Export to PDF**  
-Download the generated plan for documentation or sharing.
+---
+## ⚙️ How It Works
 
-5️⃣ **View / Search / Delete History**  
-Manage previously generated plans stored in MySQL.
+1. The user enters a marketing goal in the Streamlit interface.
+2. The AI agent processes the input and decomposes it into a structured marketing plan.
+3. Supporting tools assist with keyword suggestions, budget estimation, ad-related insights, and scheduling.
+4. The generated plan is stored in the MySQL database.
+5. Users can search, load, delete, refresh, or export generated plans as PDF.
+6. Docker Compose runs both the application and database in a consistent multi-container environment.
 
 ---
 
-## 📊 Example Goals
+## 🗄️ Database
 
-Try prompts like:
+The application uses **MySQL** for persistent storage of generated marketing plans.
 
-- "Create a marketing plan for a fitness app"
-- "Competition ads analysis"
-- "Launch strategy for a SaaS startup"
-- "Marketing strategy for a new e-commerce brand"
-- "Social media growth plan for a personal brand"
+Stored information includes:
+- plan ID
+- user goal
+- generated marketing plan
+- creation timestamp
+
+A Docker volume is used to preserve database data across container restarts.
+
+---
+
+## 🔁 CI Pipeline
+
+This project includes a **GitHub Actions CI pipeline** for basic continuous integration.
+
+On every push or pull request, the pipeline:
+- checks out the repository
+- sets up Python
+- installs dependencies
+- performs basic Python validation
+- builds the Docker image
+
+This helps maintain code quality and deployment readiness.
+
+---
+
+## 📊 Example Use Cases
+
+- Create a marketing plan for a fitness app
+- Growth plan for a personal brand
+- Marketing strategy for a new e-commerce business
+- Campaign planning for a local business
 
 ---
 
 ## 🎯 Learning Outcomes
 
-This project helped practice:
-
-- ✅ Agentic AI workflows  
-- ✅ LangChain orchestration  
-- ✅ Streamlit UI design  
-- ✅ MySQL database integration  
-- ✅ Session state management  
-- ✅ PDF generation with ReportLab  
-- ✅ UX/UI enhancements  
-- ✅ Error handling & debugging  
+This project demonstrates practical experience in:
+- Agentic AI workflow design
+- Streamlit application development
+- MySQL database integration
+- Docker containerization
+- Docker Compose orchestration
+- GitHub Actions CI setup
+- Environment variable management
+- Persistent storage with Docker volumes
+- DevOps-oriented deployment workflow
 
 ---
 
-## 🔮 Future Improvements
+## 👨‍💻 Author
 
-Planned upgrades:
-
-- 🔹 User authentication & login system  
-- 🔹 Multi-user dashboards  
-- 🔹 Cloud database deployment (AWS / Railway)  
-- 🔹 Marketing analytics & metrics  
-- 🔹 Vector memory integration  
-- 🔹 REST API deployment  
-- 🔹 Plan comparison features  
-- 🔹 Export to DOCX / CSV  
+**Krishna Pawar**
