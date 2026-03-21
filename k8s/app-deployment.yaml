@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marketing-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: marketing-app
+  template:
+    metadata:
+      labels:
+        app: marketing-app
+    spec:
+      containers:
+        - name: marketing-app
+          image: marketing_planning_assistant_agent-app:latest
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8501
+          env:
+            - name: GOOGLE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: marketing-app-secret
+                  key: GOOGLE_API_KEY
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: marketing-app-secret
+                  key: DB_HOST
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: marketing-app-secret
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: marketing-app-secret
+                  key: DB_PASSWORD
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: marketing-app-secret
+                  key: DB_NAME
+            - name: MODEL_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: marketing-app-secret
+                  key: MODEL_NAME

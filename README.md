@@ -182,6 +182,36 @@ This helps maintain code quality and deployment readiness.
 
 ---
 
+## ☸️ Kubernetes Deployment
+
+Kubernetes manifests are provided in the `k8s/` folder for deploying:
+- Streamlit application
+- MySQL database
+- Kubernetes Secret
+- Services for internal and external access
+
+To deploy on a local Kubernetes cluster:
+
+```bash
+kubectl apply -f k8s/
+```
+
+To verify resources:
+
+```bash
+kubectl get pods
+kubectl get services
+kubectl get deployments
+```
+
+The application can be accessed through NodePort after deployment:
+
+```text
+http://localhost:30085
+```
+
+---
+
 ## 📊 Example Use Cases
 
 - Create a marketing plan for a fitness app
